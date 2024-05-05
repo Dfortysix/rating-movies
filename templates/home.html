@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %} Home Page {% endblock %}
+{% block content %}
+
+<header class="bg-blue-900 py-20 text-white"> <div class="container mx-auto px-4"> <h1 class="text-4xl font-bold mb-4">Discover New Movies</h1> <p class="text-lg mb-8">Explore a wide range of movies and find your next favorite.</p> <a href="#" class="bg-blue-500 text-white px-6 py-3 rounded-lg font-bold hover:bg-blue-600">Browse Movies</a> </div> </header>
+
+  <section class="container mx-auto px-4 py-16">
+    <h2 class="text-2xl font-bold mb-8">Popular Movies</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+      <!-- Movie Card -->
+      {% for movie in movies %}
+      <div class="bg-white rounded-lg overflow-hidden shadow-md">
+        <a href="{% url 'movies:movie_detail' movie.id %}">
+        <img src="{{ movie.poster_path }}" alt="Movie Poster" class="w-full h-64 object-cover">
+        </a>
+        <div class="p-4">
+          <h3 class="text-lg font-bold mb-2">{{ movie.title }}</h3>
+          <p class="text-gray-600">{{movie.release_date}}</p>
+          <a href="{% url 'movies:movie_detail' movie.id %}" class="block text-blue-500 font-bold mt-4">Learn More</a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+
+    <br>
+    <h2 class="text-2xl font-bold mb-8">Popular TV Series</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+      <!-- Movie Card -->
+      {% for movie in tv %}
+      <div class="bg-white rounded-lg overflow-hidden shadow-md">
+        <img src="{{ movie.poster_path }}" alt="Movie Poster" class="w-full h-64 object-cover">
+        <div class="p-4">
+          <h3 class="text-lg font-bold mb-2">{{ movie.title }}</h3>
+          <p class="text-gray-600">{{movie.release_date}}</p>
+          <a href="#" class="block text-blue-500 font-bold mt-4">Learn More</a>
+        </div>
+      </div>
+      {% endfor %}
+      <!-- Add more movie cards here -->
+    </div>
+  </section>
+
+{% endblock %}
