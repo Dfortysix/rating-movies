@@ -9,7 +9,6 @@ RUN pip install -r requirements.txt
 # Sao chép tất cả các tệp trong dự án vào container
 COPY . .
 # Chạy lệnh migrate để tạo cơ sở dữ liệu SQLite3 và thực hiện các cập nhật
-WORKDIR /app/rating_movies
 RUN python manage.py migrate
 # Expose cổng 8000 (hoặc bất kỳ cổng nào bạn đang sử dụng cho dự án Django)
 EXPOSE 8000
