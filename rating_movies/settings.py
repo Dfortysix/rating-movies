@@ -77,10 +77,8 @@ WSGI_APPLICATION = 'rating_movies.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'djongo',
-        'NAME': 'rating_movies',
-        'HOST': 'localhost',
-        'PORT': 27017,
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
@@ -128,5 +126,8 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
+
+LOGIN_REDIRECT_URL ='/'
+LOGOUT_REDIRECT_URL = '/accounts/login'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
