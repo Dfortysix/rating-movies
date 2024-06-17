@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br>
+
+<div class="relative">
+  <div class="absolute inset-0 z-0">
+    <img src="{{tv_data.backdrop_path}}" alt="Background Image" class="w-full h-full object-cover opacity-100">
+  </div>
+  <div class="container mx-auto py-8 px-4 relative z-10">
+    <div class="flex">
+      <div class="w-1/4">
+        <img src="{{ tv_data.poster_path }}" alt="Movie Poster" class="w-full">
+      </div>
+      <div class="w-3/4 pl-8 text-white">
+        <h2 class="text-3xl font-bold mb-4">{{ tv_data.title }}</h2>
+        <h3 class="text-xl font-bold">Overview</h3>
+        <p class="text-lg mb-4">{{ tv_data.overview }}</p>
+        <p class="font-bold">Release Date: <span class="">{{ tv_data.release_date }}</span></p>
+        <div class="flex flex-wrap mt-4">
+          {% for kind in kinds %}
+          <span class="bg-gray-900 text-white text-sm rounded-full px-4 py-2 mr-2 mb-2">{{ tv_data.kind }}</span>
+          {% endfor %}
+        </div>
+        <p class="font-bold mt-4">Runtime: <span class="">{{ tv_data.runtime }} minutes</span></p>
+        <button id="playTrailerBtn" class="flex mt-4 items-center bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-full">
+          <svg class="w-4 h-4 mr-2 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M3 22v-20l18 10-18 10z" />
+          </svg>
+          Play Trailer
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="trailerDialog" class="hidden fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex items-center justify-center">
+  <div class="bg-white rounded-lg p-4">
+    <iframe width="800" height="500" src="{{tv_data.video}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+</div>
+
+
+<section class="container mx-auto px-4 py-16">
+    <h2 class="text-2xl font-bold mb-8">Casts</h2>
+  <div class="flex overflow-x-auto py-4">
+  <!-- Actor Card -->
+  {% for cast in casts %}
+  <div class="flex-shrink-0 w-40 mr-4">
+    <div class="bg-white rounded-lg shadow-md overflow-hidden h-80">
+      <img src="{{ cast.cast_image }}" alt="{{ cast.name }}" class="w-full h-48 object-cover">
+      <div class="p-4 h-24">
+        <h3 class="text-lg font-semibold mb-2">{{ cast.name }}</h3>
+        <p class="text-gray-600">{{ cast.character }}</p>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<h2 class="text-2xl font-bold my-8">Recommendation</h2>
+  <div class="flex overflow-x-auto py-4">
+  <!-- Recommendation Card -->
+  {% for rec in recs %}
+  <div class="flex-shrink-0 w-60 mr-4">
+    <div class="bg-white rounded-lg shadow-md overflow-hidden h-80">
+      <a href="{% url 'tvseries:tv_detail' rec.id %}">
+      <img src="{{ rec.image }}" alt="{{ cast.name }}" class="w-full h-48 object-cover">
+      </a>
+      <div class="p-4 h-24">
+        <h3 class="text-lg font-semibold mb-2">{{ rec.title }}</h3>
+        <p class="text-gray-600">{{ rec.year }}</p>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+
+</section>
+
+<script>
+const playTrailerBtn = document.getElementById('playTrailerBtn');
+const trailerDialog = document.getElementById('trailerDialog');
+
+trailerDialog.classList.add('hidden');
+playTrailerBtn.addEventListener('click', () => {
+  // Ẩn dialog trước khi hiển thị
+  trailerDialog.classList.add('hidden');
+
+  // Hiển thị dialog sau khi ẩn xong
+  setTimeout(() => {
+    trailerDialog.classList.remove('hidden');
+  }, 0);
+});
+
+window.addEventListener('click', (event) => {
+  if (event.target === trailerDialog) {
+    trailerDialog.classList.add('hidden');
+  }
+});
+</script>
+
+{% endblock %}

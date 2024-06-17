@@ -34,7 +34,7 @@
         <div class="p-4">
           <h3 class="text-lg font-bold mb-2">{{ movie.title }}</h3>
           <p class="text-gray-600">{{movie.release_date}}</p>
-          <a href="#" class="block text-blue-500 font-bold mt-4">Learn More</a>
+          <a href="{% url 'tvseries:tv_detail' movie.id %}" class="block text-blue-500 font-bold mt-4">Learn More</a>
         </div>
       </div>
       {% endfor %}
