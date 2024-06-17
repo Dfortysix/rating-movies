@@ -1,5 +1,5 @@
 # Sử dụng một hình ảnh gốc Python
-FROM python:3.9-slim
+FROM python:3.10-slim
 # Đặt thư mục làm việc trong container
 WORKDIR /app
 # Sao chép tệp requirements.txt vào container
